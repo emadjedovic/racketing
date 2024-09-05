@@ -1,7 +1,5 @@
 #lang racket
 
-; ------------------------ problem #1
-
 (define (fun L)
   (cond [(null? L) '()]
         ; at least one element
@@ -14,8 +12,6 @@
 
 (fun '(1 'a ('b 5 (2 'c)) 3))
 
-; ------------------------ problem #2
-
 (define (moj_if_lose uslov x y) (if uslov x y))
 (define (moj_if uslov x y) (if uslov (x) (y))) ; x and y being procedures
 
@@ -23,10 +19,6 @@
 (if (> 5 2) 3 (print "evaluacija!"))
 
 (moj_if (> 5 2) (lambda () 3) (lambda () (print "evaluacija!")))
-
-
-; (define (factorial-wrong x) (moj_if_lose (= x 0) 1 (* x (factorial-wrong (- x 1)))))
-; (factorial-wrong 5)
 
 (define (my_if condition x y)
   (if condition x y))
@@ -50,8 +42,6 @@
 
 (my_if (< 2 3) (displayln "yes") (displayln "no"))
 (my_if2 (< 2 3) (displayln "yes") (displayln "no"))
-
-;------------------------ problem #3
 
 #|
 Thunks are a technique used to postpone evaluation of expressions.
