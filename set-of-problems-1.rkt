@@ -91,4 +91,25 @@
 (f 100) ; 100-1=99
 (f 99) ; 99-99=0
 (f 114) ; 411-114=297
+
+; the greatest number
+
+(define (number_of_digits num)
+  (if (< num 10) 1
+      (+ 1 (number_of_digits (quotient num 10)))))
+
+(define (theGreatestNum L)
+  (helper (cdr L) (car L))) ; car L can be another list
+
+(define (helper L acc)
+  (cond [(null? L) acc]
+        [(number? acc)
+         (if (> (car L) acc) (helper (cdr L) (car L))
+             (helper (cdr L) acc))]
+        [(list? acc) (helper (cdr acc) (car acc))])) ; find the greatest in sublist acc
+
+(displayln "The greatest number...")
+(theGreatestNum '(5 3 -6 7 2 11 4))
+(theGreatestNum '(55 13 -61 71 2 11 4))
+(theGreatestNum '(5 33 -6 7 2 11 4))
                                                
