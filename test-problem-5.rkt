@@ -18,3 +18,68 @@ returns a stream v which consists of all the elements from s that are greater
 than all the previous elements from stream s. Test the function with a stream from part a).
 
 |#
+
+(displayln "Generator...")
+
+(define (generator-helper k)
+    (cons (* (expt -1 k) (+ (* 4 k) 1)) (lambda () (generator-helper (+ 1 k)))))
+
+(define generator
+  (generator-helper 1))
+
+generator
+((cdr generator))
+(( cdr ((cdr generator))))
+
+(displayln "Naturals...")
+
+(define (naturals-helper start)
+  (cons start (lambda () (naturals-helper (+ 1 start)))))
+
+(define naturals
+  (naturals-helper 1))
+
+naturals
+((cdr naturals))
+(( cdr ((cdr naturals))))
+
+(displayln "Enumerate naturals...")
+
+
+(define (enumerate-helper s start)
+  (cons (cons start (car s)) ; a pair (i, e)
+        (lambda () (enumerate-helper ((cdr s)) (+ 1 start)))))
+
+(define (enumerate s)
+  (enumerate-helper s 0))
+
+(enumerate naturals)
+((cdr (enumerate naturals)))
+(( cdr ((cdr (enumerate naturals)))))
+
+
+(displayln "Enumerate generated...")
+
+(enumerate generator)
+((cdr (enumerate generator)))
+(( cdr ((cdr (enumerate generator)))))
+((cdr (( cdr ((cdr (enumerate generator)))))))
+((cdr ((cdr (( cdr ((cdr (enumerate generator)))))))))
+(( cdr (( cdr ((cdr (( cdr ((cdr (enumerate generator)))))))))))
+
+(displayln "Greater than previous...")
+
+(define (helper s acc)
+  (if (> (car s) acc) (cons (car s) (lambda () (helper ((cdr s)) (car s))))
+      (helper ((cdr s)) acc)))
+
+(define (greater_than_previous s)
+  (cons (car s) (lambda () (helper ((cdr s)) (car s)))))
+
+
+(define v (greater_than_previous generator)) ; testing
+v
+((cdr v))
+((cdr ((cdr v))))
+(( cdr ((cdr ((cdr v))))))
+(( cdr (( cdr ((cdr ((cdr v))))))))
